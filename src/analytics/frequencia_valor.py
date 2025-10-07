@@ -39,14 +39,15 @@ kmeans = cluster.KMeans(n_clusters=5,
                         max_iter=1000)
 kmeans.fit(X)
 
-df['cluster'] = kmeans.labels_
+df['cluster_calc'] = kmeans.labels_
+df_X['cluster'] = kmeans.labels_
 
-df.groupby(by='cluster')['IdCliente'].count()
+df.groupby(by='cluster_calc')['IdCliente'].count()
 #%%
 sns.scatterplot(data = df,
                 x='qtdeFrequencia',
                 y='qtdePontosPos', 
-                hue='cluster',
+                hue='cluster_calc',
                 palette= 'deep')
 
 plt.hlines(y=1500, xmin=0, xmax=25, colors='black')
@@ -54,4 +55,12 @@ plt.hlines(y=750, xmin=0, xmax=25, colors='black')
 plt.vlines(x=4, ymin=0, ymax=750, colors='black')
 plt.vlines(x=10, ymin=0, ymax=3000, colors='black')
 
+plt.grid()
+#%%
+sns.scatterplot(data = df,
+                x='qtdeFrequencia',
+                y='qtdePontosPos', 
+                hue='cluster',
+                palette= 'deep')
+plt.legend(loc ='lower right' )
 plt.grid()
